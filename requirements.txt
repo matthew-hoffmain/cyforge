@@ -1,0 +1,4 @@
+graphviz~=2.50.0
+networkx
+openai
+flask
