@@ -63,7 +63,7 @@ export function CustomControls({
 
     function listNodes() {
         return (nodes.map(node => node.selected ? <div>
-            <button><strong>BLOCK#{node.id},NAME:{node.data.label}</strong></button>
+            <button><strong>BLOCK#{node.id} : {node.data.label}</strong></button>
         </div> : <div>
             <button onClick={(e) => selectNode(node)}>BLOCK#{node.id} : {node.data.label}</button>
         </div>))
@@ -195,13 +195,13 @@ export function CustomControls({
                                 Schema Overview
                             </button>
 
-                            <button onClick={() => setPageView(1)}>
-                                Credentials
-                            </button>
+                            {/*<button onClick={() => setPageView(1)}>*/}
+                            {/*    Credentials*/}
+                            {/*</button>*/}
 
-                            <button onClick={() => setPageView(2)}>
-                                Custom Response Functions
-                            </button>
+                            {/*<button onClick={() => setPageView(2)}>*/}
+                            {/*    Custom Response Functions*/}
+                            {/*</button>*/}
                         </div>
                     </Panel>
                     {renderPage()}

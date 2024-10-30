@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
 import Box from "@mui/material/Box";
-import {add_style} from "../Styling";
 import {useCallback} from 'react';
 import ReactFlow, {
     MiniMap,
@@ -33,13 +32,13 @@ const edgeTypes = {
     customEdge: customEdge,
 }
 
-const startNode = add_style({
+const startNode = {
     id: '0',
     position: {x: 0, y: 0},
     type: 'customNode',
     data: {blockType: 'System', label: 'START', isJoin: false, connected: true, color: '#AEC4FF'},
     className:"nodrag",
-})
+}
 
 const defaultViewport = {x: 300, y: 200, zoom: 1.5};
 
@@ -162,7 +161,7 @@ export function Sandbox() {
                 border: '2px solid black',
                 display: 'block',
                 // width: '1080px',
-                height: '800px',
+                height: '1080px',
                 bgcolor: '#eeeeee',
                 '&:hover': {
                     bgcolor: '#ffffff',
@@ -183,8 +182,8 @@ export function Sandbox() {
                     snapToGrid={true}
                     snapGrid={[10, 10]}
                 >
-                    <MiniMap/>
-                    <Controls/>
+                    {/*<MiniMap/>*/}
+                    {/*<Controls/>*/}
                     <CustomControls
                                     nodes={nodes}
                                     edges={edges}

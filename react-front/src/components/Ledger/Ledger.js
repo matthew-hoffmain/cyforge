@@ -102,10 +102,20 @@ export function Ledger({schemaName,
         ).then((response) => console.log(response))
     }
 
+    function deliver_and_run() {
+        fetch("/sandbox/deliver_and_run/", {
+                method: "GET", headers: {
+                    "username": username, "sessionkey": sessionkey, "schemaName": schemaName, "schemaID": schemaID, "blockID": 1, "content": userResponse
+                }
+            }
+
+        ).then((response) => response.json()
+        ).then((response) => console.log(response))
+    }
+
     function handleSend(){
-        deliver_content();
+        deliver_and_run();
         setUserResponse("");
-        run_to_unprepared();
     }
 
     function handleEnter(e) {

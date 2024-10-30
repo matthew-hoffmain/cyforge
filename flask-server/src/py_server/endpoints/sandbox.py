@@ -278,3 +278,34 @@ def run_to_unprepared():
         status = server_i.run_schema_to_unprepared(username, schemaName, schemaID)
 
     return {"status": status}
+
+@sandbox.route("/deliver_and_run/")
+def deliver_and_run():
+    status = -1
+    content = ""
+
+    server_i = server.app.config['server']
+    username = request.headers['username'].replace("'", "''")
+    sessionkey = request.headers['sessionkey'].replace("'", "''")
+    authorized = server_i.auth_sessionkey(username, sessionkey)
+
+    if not authorized:
+        status = -1
+    else:
+        schemaName = request.headers['schemaName'].replace("'", "''")
+        schemaID = request.headers['schemaID'].replace("'", "''")
+        blockID = request.headers['blockID'].replace("'", "''")
+        content = request.headers['content'].replace("'", "''")
+
+        # TODO: remove placeholder!
+        blockID = 1
+
+        print(f"blockID={blockID},content={content}")
+
+        status = server_i.deliver_content(username, schemaName, schemaID, blockID, content)
+        if status == 0:
+            status = server_i.run_schema_to_unprepared(username, schemaName, schemaID)
+        else:
+            status = -1
+
+    return {"status": status}

@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {add_style} from "../Styling";
 
 export default function AddNodeButton({nodes, setNodes, nextID}) {
 
@@ -7,7 +6,7 @@ export default function AddNodeButton({nodes, setNodes, nextID}) {
         // todo: abstract function, add ability to copy nodes by passing in data
         const targetID = nextID().toString();
 
-        const newNode = add_style({
+        const newNode = {
             id: targetID,
             position: {x: 0, y: 0},
             type: 'customNode',
@@ -31,7 +30,7 @@ export default function AddNodeButton({nodes, setNodes, nextID}) {
                 // responder-model
                 credentials: "ADMIN openai",
             }
-        })
+        }
         const newNodes = nodes.concat(newNode);
 
         setNodes(newNodes);

@@ -12,6 +12,21 @@ import styled from 'styled-components';
 const blockTypes = ['System', 'Responder', 'Switch', 'Component', 'Test']
 
 
+function get_color(data) {
+    const this_alpha = data.connected ? "FF" : "AA"
+
+    return data.color + this_alpha;
+}
+
+function get_glow(data) {
+    if (data.connected) {
+        return "0 0 20px " + get_color(data);
+    }
+    else {
+        return ''
+    }
+}
+
 
 export default function CustomNode({id, data, isConnectable}) {
 
@@ -60,7 +75,6 @@ export default function CustomNode({id, data, isConnectable}) {
             }
         });
     }
-
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -183,7 +197,15 @@ export default function CustomNode({id, data, isConnectable}) {
     })
 
     return (
-        <data.style>
+        <div style={{
+            fontSize: '12px',
+            background: get_color(data),
+            border: '2px solid #444',
+            borderRadius: '5px',
+            textAlign: 'left',
+            padding: '5px',
+            boxShadow: get_glow(data)}}>
+
             {editing && <NodeResizer minWidth={200} minHeight={200}/>}
             <Handle
                 className={'customHandle'}
@@ -270,6 +292,6 @@ export default function CustomNode({id, data, isConnectable}) {
                     </div>}
 
                 </NodeToolbar>
-        </data.style>
+        </div>
 );
 };
