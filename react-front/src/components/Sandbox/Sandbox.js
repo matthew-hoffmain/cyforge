@@ -1,5 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import Box from "@mui/material/Box";
+import {add_style} from "../Styling";
 import {useCallback} from 'react';
 import ReactFlow, {
     MiniMap,
@@ -21,6 +22,8 @@ import {CustomControls} from "../CustomControls/CustomControls";
 import useWindowDimensions from "../WindowDimensions";
 import {UserContext} from "../contexts/UserContext";
 import Modal from "../Modal/Modal";
+import {light} from "@mui/material/styles/createPalette";
+import styled from "styled-components";
 
 const nodeTypes = {
     customNode: customNode,
@@ -30,13 +33,13 @@ const edgeTypes = {
     customEdge: customEdge,
 }
 
-const startNode = {
+const startNode = add_style({
     id: '0',
     position: {x: 0, y: 0},
     type: 'customNode',
     data: {blockType: 'System', label: 'START', isJoin: false, connected: true, color: '#AEC4FF'},
     className:"nodrag",
-}
+})
 
 const defaultViewport = {x: 300, y: 200, zoom: 1.5};
 
@@ -154,9 +157,14 @@ export function Sandbox() {
 
     return (
         <div align={'left'}>
-            <button onClick={light_em_up}>LIGHT EM UP</button>
+            {/*<button onClick={light_em_up}>LIGHT EM UP</button>*/}
             <Box component="section" sx={{
-                border: '2px solid black', display: 'block', height: '1280px', bgcolor: '#eeeeee', '&:hover': {
+                border: '2px solid black',
+                display: 'block',
+                // width: '1080px',
+                height: '800px',
+                bgcolor: '#eeeeee',
+                '&:hover': {
                     bgcolor: '#ffffff',
                 },
             }}
@@ -191,6 +199,7 @@ export function Sandbox() {
                                     get_schema={get_schema}
                                     send_schema={send_schema}
                                     update_schema={update_schema}
+                                    light_em_up={light_em_up}
                     ></CustomControls>
                     <Background/>
                 </ReactFlow>

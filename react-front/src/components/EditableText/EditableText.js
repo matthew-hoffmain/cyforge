@@ -1,10 +1,12 @@
 import {useState} from "react";
 
-export default function EditableText({editing, name, value, setValue}) {
+export default function EditableText({editing, name, value, setValue, ref}) {
 
     return(
         editing ?
-            <input type="text"
+            <input
+                ref={ref}
+                type="text"
                    className="nodrag"
                    name={name}
                    value={value}

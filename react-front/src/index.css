@@ -17,9 +17,10 @@ option {
 
 button {
   cursor: pointer;
-  padding: 1px 2px;
+  padding: 1px 3px;
   border-radius: 5px;
   transition: background-color 0.3s;
+  font-family: "Roboto", sans-serif;
 }
 
 code {

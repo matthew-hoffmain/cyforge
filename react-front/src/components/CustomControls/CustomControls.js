@@ -8,6 +8,7 @@ import AddNodeButton from "../AddNodeButton/AddNodeButton";
 import {Ledger} from "../Ledger/Ledger";
 import {UserContext} from "../contexts/UserContext";
 import Modal from "../Modal/Modal";
+import Timer from "../Timer";
 
 export function CustomControls({
                                    nodes,
@@ -22,7 +23,8 @@ export function CustomControls({
                                    set_schema_list,
                                    send_schema,
                                    get_schema,
-                                   update_schema
+                                   update_schema,
+                                   light_em_up,
                                }) {
     const username = useContext(UserContext);
     const [modalContent, setModalContent] = useState("We love modals here")
@@ -63,7 +65,7 @@ export function CustomControls({
         return (nodes.map(node => node.selected ? <div>
             <button><strong>BLOCK#{node.id},NAME:{node.data.label}</strong></button>
         </div> : <div>
-            <button onClick={(e) => selectNode(node)}>BLOCK#{node.id},NAME:{node.data.label}</button>
+            <button onClick={(e) => selectNode(node)}>BLOCK#{node.id} : {node.data.label}</button>
         </div>))
     }
 
@@ -89,10 +91,14 @@ export function CustomControls({
                 return <Controls position='top-left' style={{position: 'absolute', top: '30px'}} showZoom={false} showFitView={false}
                                  showInteractive={false}>
                     <Box component="section" sx={{
+                        color: 'white',
                         borderRadius: '10px',
                         padding: '5px',
-                        border: '2px solid grey', display: 'block', bgcolor: '#eeeeee', '&:hover': {
-                            bgcolor: '#ffffff',
+                        border: '2px solid black',
+                        display: 'block',
+                        bgcolor: '#222222',
+                        '&:hover': {
+                            bgcolor: '#333333',
                         },
                     }}
                     >
@@ -100,7 +106,7 @@ export function CustomControls({
 
                         <div className={"schema-control"}>
                             <div>
-                                Current Schema:<select value={schemaName} onClick={() => set_schema_list()}>
+                                Select Schema:<select value={schemaName} onClick={() => set_schema_list()}>
                                     {optionsList}
                                 </select>
                                 <button onClick={update_schema}>SAVE</button>
@@ -118,14 +124,22 @@ export function CustomControls({
 
                         </div>
 
-                        NODE LIST:
-                        {listNodes()}
-                        <AddNodeButton nodes={nodes} setNodes={setNodes} nextID={nextID}/>
+                        <Box>
+                            Node List
+                        </Box>
 
-                        <div>EDGE LIST</div>
+                        <Box maxHeight='300px' overflow={'auto'}>
+                            {listNodes()}
+                            <AddNodeButton nodes={nodes} setNodes={setNodes} nextID={nextID}/>
+                        </Box>
 
+                        <div>
+                            Edge List
+                        </div>
 
-                        {listEdges()}
+                        <Box maxHeight='300px' overflow={'auto'}>
+                            {listEdges()}
+                        </Box>
 
 
                     </Box>
@@ -191,7 +205,7 @@ export function CustomControls({
                         </div>
                     </Panel>
                     {renderPage()}
-                    <Ledger schemaName={schemaName} update_schema={update_schema}/>
+                    <Ledger schemaName={schemaName} update_schema={update_schema} nodes={nodes} selectNode={selectNode} light_em_up={light_em_up}/>
                     <Panel id={"modal-manager"} style={{position: 'absolute'}} position={'top-center'}>
                         {modalContent !== "" && <Modal onClick={() => setModalContent("")} content={modalContent}></Modal>}
                     </Panel>

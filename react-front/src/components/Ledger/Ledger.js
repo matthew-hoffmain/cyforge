@@ -1,12 +1,16 @@
 import {Panel} from "reactflow";
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Box from "@mui/material/Box";
 import {Message} from "../Message/Message";
 import {UserContext} from "../contexts/UserContext";
+import Timer from "../Timer";
 
 
 export function Ledger({schemaName,
-                       update_schema}) {
+                       update_schema,
+                       nodes,
+                       selectNode,
+                       light_em_up}) {
     const {username, sessionkey} = useContext(UserContext)
 
     const [showLedger, setShowLedger] = useState(false);
@@ -31,7 +35,7 @@ export function Ledger({schemaName,
                 "username": username, "sessionkey": sessionkey, "schemaName": schemaName
             }
         }).then((response) => response.json()
-        ).then((response) => {setSchemaID(JSON.parse(response.content)); get_schema_instances();})
+        ).then((response) => {setSchemaID(JSON.parse(response.content)); get_schema_instances(); light_em_up();})
     }
 
     function get_schema_instances() {
@@ -101,6 +105,7 @@ export function Ledger({schemaName,
     function handleSend(){
         deliver_content();
         setUserResponse("");
+        run_to_unprepared();
     }
 
     function handleEnter(e) {
@@ -108,6 +113,30 @@ export function Ledger({schemaName,
             handleSend()
         }
     }
+
+    function get_node(block_id) {
+        const target_node_singlet = nodes.filter((node) => node.id.toString() === block_id.toString());
+        return target_node_singlet[0]
+    }
+
+
+
+    const [seconds, setSeconds] = useState(0);
+    const [isActive, setIsActive] = useState(true);
+
+    useEffect(() => {
+        let interval = null;
+        if (schemaID.toFixed() > 0) {
+            get_state();
+            interval = setInterval(() => {
+                setSeconds(seconds => seconds + 1);
+            }, 1000);
+        } else {
+            clearInterval(interval);
+        }
+        return () => clearInterval(interval);
+    }, [schemaID, isActive, seconds]);
+
 
     return (
         <>
@@ -121,14 +150,14 @@ export function Ledger({schemaName,
                     padding: '5px',
                     border: '2px solid black',
                     display: 'block',
-                    height: '800px',
+                    height: '650px',
                     width: '500px',
                     bgcolor: '#222222',
                     '&:hover': {
                         bgcolor: '#333333',
                     },
                 }}>
-                    <Box sx={{bgcolor: 'blue'}}>
+                    <Box sx={{}}>
                         <div>Current Schema:{schemaName}</div>
                         <div>Current Instance:<select value={schemaID}
                                                       onClick={() => get_schema_instances()}>{optionsList}</select>
@@ -143,23 +172,20 @@ export function Ledger({schemaName,
                         <div label={'buttonTray'}>
                             <button onClick={() => {
                                 make_schema_instance()
-                            }}>MAKE SCHEMA INSTANCE
+                            }}>Create instance
                             </button>
-                            <button onClick={get_state}>REFRESH</button>
-                            <button onClick={execute_next}>EXECUTE</button>
-                            <button onClick={run}>RUN</button>
-                            <button onClick={run_to_unprepared}>RUN TO UNPREPARED</button>
+                            <button onClick={get_state}>Refresh</button>
+                            <button onClick={execute_next}>Execute Next</button>
+                            <button onClick={run_to_unprepared}>Run</button>
                         </div>
                     </Box>
 
-                    <Box sx={{height: '650px', width: '500px'}} overflow={'auto'}>
-
-                        <Box sx={{}}>{messages.map((data) => <Message data={data}/>)}
+                    <Box sx={{height: '500px', width: '500px'}} overflow={'auto'}>
+                        <Box sx={{}}>{messages.map((data) => <Message data={data} node={get_node(data.block_id)} selectNode={selectNode}/>)}
                             <div label={'bottom'}/>
                         </Box>
 
                     </Box>
-
 
                     <Box component="section" sx={{
                         position: 'absolute', left: '15px', bottom: '15px',

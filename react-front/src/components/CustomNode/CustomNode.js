@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import ReactFlow, {
     Handle, NodeToolbar, Position, useNodesState, useReactFlow, NodeResizer
 } from 'reactflow';
@@ -11,21 +11,6 @@ import styled from 'styled-components';
 
 const blockTypes = ['System', 'Responder', 'Switch', 'Component', 'Test']
 
-
-function get_color(data) {
-    const this_alpha = data.connected ? "FF" : "AA"
-
-    return data.color + this_alpha;
-}
-
-function get_glow(data) {
-    switch(data.connected) {
-        case(true):
-            return "0 0 20px " + get_color(data);
-        default:
-            return ''
-    }
-}
 
 
 export default function CustomNode({id, data, isConnectable}) {
@@ -47,22 +32,6 @@ export default function CustomNode({id, data, isConnectable}) {
     const [content, setContent] = useState(data.content);
     // responder-model
     const [credentials, setCredentials] = useState(data.credentials);
-
-    const NodeStyler = styled.div`
-        font-size: 12px;
-        background: ${get_color({...data, id: id})};
-        border: 2px solid #444;
-        border-radius: 5px;
-        text-align: left;
-        padding: 5px;
-        box-shadow: ${get_glow({...data, id: id})};
-
-        .react-flow__handle {
-            width: 7px;
-            height: 7px;
-            border-radius: 10px;
-        }
-    `;
 
     function duplicateNode() {
         addNodes({
@@ -208,10 +177,13 @@ export default function CustomNode({id, data, isConnectable}) {
     };
 
     // todo: change it so someone calls and updated ALL nodes, right now each node searches the list for itself to update...n^2 -> n
-    useEffect(() => setNodes((nodes) => nodes.map((node) => node.id === id ? updateNode(node) : node)))
+    useEffect(() => {
+        setNodes((nodes) => nodes.map((node) => node.id === id ? updateNode(node) : node));
+
+    })
 
     return (
-        <NodeStyler>
+        <data.style>
             {editing && <NodeResizer minWidth={200} minHeight={200}/>}
             <Handle
                 className={'customHandle'}
@@ -298,6 +270,6 @@ export default function CustomNode({id, data, isConnectable}) {
                     </div>}
 
                 </NodeToolbar>
-        </NodeStyler>
+        </data.style>
 );
 };

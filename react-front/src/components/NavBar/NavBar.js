@@ -11,35 +11,39 @@ export function NavBar() {
     }
 
     return (<Box className="toolbar" component="section" sx={{
-        bgcolor: '#ffffff', p: .5, '&:hover': {
-            bgcolor: '#ffffff',
+        color: 'white',
+        padding: '5px',
+        display: 'block',
+        bgcolor: '#222222',
+        '&:hover': {
+            bgcolor: '#333333',
         },
     }}>
         <Box className="left-toolbar"
              component="section"
              sx={{
-                 display: 'inline-block', height: '25px', width: '33.333%', bgcolor: 'white'
+                 display: 'inline-block', height: '25px', width: '33.333%',
              }}>
             Welcome {username}
         </Box>
         <Box className="middle-toolbar"
              component="section"
              sx={{
-                 display: 'inline-block', height: '25px', width: '33.333%', bgcolor: 'white'
+                 display: 'inline-block', height: '25px', width: '33.333%',
              }}>
             <div align={"center"}>
-                HOFFMAIN - "Make what works for you."
+                <strong>CYFORGE</strong>
             </div>
         </Box>
         <Box className="right-toolbar"
              align={'center'}
              component="section"
              sx={{
-                 display: 'inline-block', height: '25px', width: '33.333%', bgcolor: 'white'
+                 display: 'inline-block', height: '25px', width: '33.333%',
              }}>
             <div align={'right'}>
-                <button>TEST 1</button>
-                <button>TEST 2</button>
+                {/*<button>TEST 1</button>*/}
+                {/*<button>TEST 2</button>*/}
                 <button onClick={signOut}> SIGN OUT</button>
             </div>
         </Box>

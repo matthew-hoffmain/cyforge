@@ -77,9 +77,6 @@ export default function CustomEdge({
                     <button className="edgebutton" onClick={onEdgeClickToggle}>
                         Toggle
                     </button>
-                    <button className="edgebutton" onClick={onEdgeClickDelete}>
-                        X
-                    </button>
 
                 </div>
             </EdgeLabelRenderer>
