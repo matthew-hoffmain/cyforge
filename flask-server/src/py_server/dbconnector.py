@@ -2,39 +2,36 @@ import sqlite3
 import queue
 import threading
 import time
+from typing import List, Any
 
 
 class DBConnector:
-    def __init__(self, database: str, log: bool):
+    def __init__(self,
+                 database: str,
+                 log: bool
+                 ) -> None:
         self.database = database
         self.query_queue = queue.Queue()
         self.db_connection = None
         self.log = log
 
-    def run_query(self, query):
+    def run_query(self,
+                  query: str
+                  ) -> list[Any]:
         if self.log:
             print(f"SERVER_QUERY_LOG#Q:{query}")
+
+        # Use connection as a context manager, attempt query execution and close connection on exception
         db_connection = sqlite3.connect(self.database, check_same_thread=False)
-        # Initialize DB connection and cursor
         try:
-            cur = db_connection.cursor()
-            res = cur.execute(query).fetchall()
-            db_connection.commit()
-        finally:
-            db_connection.close()
+            # Commit called automatically upon exiting context
+            with db_connection:
+                res = db_connection.execute(query).fetchall()
+        # Rollback called upon exception
+        except sqlite3.IntegrityError:
+            print(f"SERVER_QUERY_LOG#E:Exception triggered, rolling back previous query:{query}")
+            raise
+
         if self.log:
             print(f"SERVER_QUERY_LOG#R:{res}")
         return res
-
-    def work_on_queue(self):
-        while True:
-            if not self.query_queue.empty():
-                query = self.query_queue.get()
-                print(query)
-
-    def queue_query(self, query):
-        pass
-
-    def start_workers(self, num_workers=3):
-        thread = threading.Thread(target=self.work_on_queue)
-        thread.start()
