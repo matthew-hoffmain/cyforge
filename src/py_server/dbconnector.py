@@ -21,7 +21,7 @@ class DBConnector:
         if self.log:
             print(f"SERVER_QUERY_LOG#Q:{query}")
 
-        # Use connection as a context manager, attempt query execution and close connection on exception
+        # Use connection as a context manager, attempt query execution and close connection upon exiting context
         db_connection = sqlite3.connect(self.database, check_same_thread=False)
         try:
             # Commit called automatically upon exiting context

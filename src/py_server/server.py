@@ -12,6 +12,7 @@ from blocks.responders.responder import Responder
 from blocks.responders.textInput import TextInput
 from dbconnector import DBConnector
 from py_schema.schema import Schema
+import threading
 from openai import OpenAI
 import hashlib
 
@@ -19,10 +20,7 @@ app = Flask(__name__)
 
 forbiddenSchemas = [""]
 
-templateSchemas = {"empty": '{"nodes": [], "edges": []}',
-                   "default": '{"nodes": [], "edges": []}',
-                   "ADA": '{"nodes": [], "edges": []}'}
-
+templateSchemas = {"empty": '{"nodes": [], "edges": []}'}
 
 
 class Server:
@@ -304,6 +302,7 @@ class Server:
             self.schema_instances[username][schemaName] = {0: None}
         target_schema_instances = self.schema_instances[username][schemaName]
         id_list = [ID for ID in target_schema_instances.keys()]
+        # todo : update when schema instances can be deleted
         next_schemaID = max(id_list) + 1
         new_schema = Schema(block_id=0, name=schemaName)
         self.schema_instances[username][schemaName][next_schemaID] = new_schema
@@ -444,7 +443,6 @@ class Server:
 
         return 0
 
-
     def run_schema_to_unprepared(self,
                      username,
                      schemaName,
@@ -452,10 +450,10 @@ class Server:
                      ):
         schemaID = int(schemaID)
         schema_i = self.get_schema_i(username, schemaName, schemaID)
-        schema_i.run_to_unprepared()
+        thread = threading.Thread(target=schema_i.run_to_unprepared)
+        thread.start()
 
         return 0
-
 
     def deliver_content(self,
                         username,
@@ -489,8 +487,6 @@ class Server:
         ledger = self.schema_instances[username][schemaName][int(schemaID)].get_ledger()
         return 0, [message.dict() for message in ledger]
 
-    def get_response(self,
-                     username,
-                     schemaID
-                     ):
+    def authorized_request(self,
+                           request) -> int:
         pass

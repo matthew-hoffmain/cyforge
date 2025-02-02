@@ -41,7 +41,8 @@ class Switch(Block):
         results = self.func(**kwargs)
         return [self.result_id_map[result] for result in results]
 
-    def get_possible_flow(self):
+    def get_possible_flow(self
+                          ):
         return self.result_id_map.values()
 
     def is_switch(self

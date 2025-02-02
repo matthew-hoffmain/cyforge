@@ -1,12 +1,22 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify, make_response
+from enum import Enum
 import server
 
 sandbox = Blueprint("sandbox", __name__, url_prefix="/sandbox")
 
+class StatusCode(Enum):
+    OK = 200
+    CREATED = 201
+    NO_CONTENT = 204
+    BAD_REQUEST = 400
+    UNAUTHORIZED = 401
+    FORBIDDEN = 403
+    NOT_FOUND = 404
+    INTERNAL_SERVER_ERROR = 500
 
 @sandbox.route("/")
 def home():
-    return {"content": f"hello world"}
+    return make_response(jsonify({"message": "Unauthorized"}), StatusCode.UNAUTHORIZED.value)
 
 
 @sandbox.route("/refresh/")
@@ -278,6 +288,8 @@ def run_to_unprepared():
         status = server_i.run_schema_to_unprepared(username, schemaName, schemaID)
 
     return {"status": status}
+
+
 
 @sandbox.route("/deliver_and_run/")
 def deliver_and_run():

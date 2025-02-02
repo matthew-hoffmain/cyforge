@@ -29,6 +29,7 @@ class MachineModel(ResponseGenerator):
             case "openai":
                 openai_textmodels = ["gpt-4o", "gpt-4o-mini"]
                 if self.model in openai_textmodels:
+                    # todo: check roles
                     history = [{"role": "assistant", "content": message.content} for message in ledger]
                     client = OpenAI(api_key=self.api_key)
                     response = client.chat.completions.create(
