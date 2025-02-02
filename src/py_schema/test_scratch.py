@@ -255,11 +255,7 @@ def test_components():
     schema0.add_flow(0, 4)
     schema0.add_flow(1, 2)
     schema0.add_dependency(1, 3)
-
-    schema0.run(False,False)
-
-
-    # schema0.digraph_view()
+    schema0.run()
 
 
 if __name__ == '__main__':
