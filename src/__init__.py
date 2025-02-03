@@ -1,1 +1,1 @@
-from py_schema import *
+from .py_schema import *

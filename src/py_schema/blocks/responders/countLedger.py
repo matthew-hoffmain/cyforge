@@ -1,4 +1,4 @@
-from message import Message
+from py_schema.message import Message
 from blocks.responders.responseGenerator import ResponseGenerator
 
 

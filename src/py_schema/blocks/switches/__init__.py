@@ -1,1 +1,1 @@
-from switch import *
+from .switch import *
