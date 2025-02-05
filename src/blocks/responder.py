@@ -1,7 +1,7 @@
 from datetime import datetime
-from py_schema.message import Message
+from message import Message
 from block import Block
-from py_schema.blocks.responders.responseGenerator import ResponseGenerator
+from blocks.responders.responseGenerator import ResponseGenerator
 
 
 class Responder(Block):

@@ -2,7 +2,7 @@
 
 """
 
-from server import Server, app
+from server.server import Server, app
 from argparse import ArgumentParser
 
 from endpoints.auth import auth

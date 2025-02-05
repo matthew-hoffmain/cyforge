@@ -29,9 +29,9 @@ class Server:
                  template_config_section: str
                  ):
         """
-        Creates a server instance with a given config file and two config sections.
+        Creates a flask-back instance with a given config file and two config sections.
         The config options are validated to make sure that they have the same keys.
-        This is to ensure that a template version of the server configuration is always maintained.
+        This is to ensure that a template version of the flask-back configuration is always maintained.
         :param config_file: Target ini file to load sections from.
         :param target_config_section: Config section to actually load.
         :param template_config_section: Config section to validate target against.
@@ -68,7 +68,7 @@ class Server:
             f"No 'database' option specified in {target_config_section}"
 
         # Attaches a self-reference to the app instance
-        self.app_i.config['server'] = self
+        self.app_i.config['flask-back'] = self
         self.dbc = DBConnector(self.app_i.config['database'], log=False)
         self.secret_key = self.app_i.config['secret_key']
 

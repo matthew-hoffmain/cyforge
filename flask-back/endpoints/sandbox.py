@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, make_response
 from enum import Enum
-import server
+from server import server
 
 sandbox = Blueprint("sandbox", __name__, url_prefix="/sandbox")
 
@@ -21,10 +21,10 @@ def home():
 
 @sandbox.route("/refresh/")
 def refresh():
-    server_i = server.app.config['server']
+    server_i = server.app.config['flask-back']
     server_i.dbc.query_queue.put("hello!")
 
-    # init server values if DNE
+    # init flask-back values if DNE
     try:
         server_i.sandbox
     except:
@@ -42,7 +42,7 @@ def refresh():
     server_i.run_query(f"UPDATE sandbox SET value = {db_value} WHERE key = 'refresh';")
 
     ret = (f"Let's do a DB test!\n"
-           f"Since resetting the server this page has been hit {server_value} times\n"
+           f"Since resetting the flask-back this page has been hit {server_value} times\n"
            f"But the DB has maintained that the total is {db_value} times\n")
 
     return {"content": ret}
@@ -50,7 +50,7 @@ def refresh():
 
 @sandbox.route("/get_server_map/")
 def get_server_map():
-    server_i = server.app.config['server']
+    server_i = server.app.config['flask-back']
     return f"{server_i.get_url_map()}"
 
 
@@ -59,7 +59,7 @@ def get_schema_list():
     status = -1
     content = ""
 
-    server_i = server.app.config['server']
+    server_i = server.app.config['flask-back']
     username = request.headers['username'].replace("'", "''")
     sessionkey = request.headers['sessionkey'].replace("'", "''")
     authorized = server_i.auth_sessionkey(username, sessionkey)
@@ -77,7 +77,7 @@ def schema():
     status = -1
     content = ""
 
-    server_i = server.app.config['server']
+    server_i = server.app.config['flask-back']
     username = request.headers['username'].replace("'", "''")
     sessionkey = request.headers['sessionkey'].replace("'", "''")
     authorized = server_i.auth_sessionkey(username, sessionkey)
@@ -106,7 +106,7 @@ def make_schema_instance():
     status = -1
     content = ""
 
-    server_i = server.app.config['server']
+    server_i = server.app.config['flask-back']
     username = request.headers['username'].replace("'", "''")
     sessionkey = request.headers['sessionkey'].replace("'", "''")
     authorized = server_i.auth_sessionkey(username, sessionkey)
@@ -125,7 +125,7 @@ def get_ledger():
     status = -1
     content = ""
 
-    server_i = server.app.config['server']
+    server_i = server.app.config['flask-back']
     username = request.headers['username'].replace("'", "''")
     sessionkey = request.headers['sessionkey'].replace("'", "''")
     authorized = server_i.auth_sessionkey(username, sessionkey)
@@ -144,7 +144,7 @@ def execute_next():
     status = -1
     content = ""
 
-    server_i = server.app.config['server']
+    server_i = server.app.config['flask-back']
     username = request.headers['username'].replace("'", "''")
     sessionkey = request.headers['sessionkey'].replace("'", "''")
     authorized = server_i.auth_sessionkey(username, sessionkey)
@@ -164,7 +164,7 @@ def get_schema_instances():
     status = -1
     content = ""
 
-    server_i = server.app.config['server']
+    server_i = server.app.config['flask-back']
     username = request.headers['username'].replace("'", "''")
     sessionkey = request.headers['sessionkey'].replace("'", "''")
     authorized = server_i.auth_sessionkey(username, sessionkey)
@@ -183,7 +183,7 @@ def get_response():
     status = -1
     content = ""
 
-    server_i = server.app.config['server']
+    server_i = server.app.config['flask-back']
     username = request.headers['username'].replace("'", "''")
     sessionkey = request.headers['sessionkey'].replace("'", "''")
     authorized = server_i.auth_sessionkey(username, sessionkey)
@@ -204,7 +204,7 @@ def get_state():
     status = -1
     content = ""
 
-    server_i = server.app.config['server']
+    server_i = server.app.config['flask-back']
     username = request.headers['username'].replace("'", "''")
     sessionkey = request.headers['sessionkey'].replace("'", "''")
     authorized = server_i.auth_sessionkey(username, sessionkey)
@@ -225,7 +225,7 @@ def deliver_content():
     status = -1
     content = ""
 
-    server_i = server.app.config['server']
+    server_i = server.app.config['flask-back']
     username = request.headers['username'].replace("'", "''")
     sessionkey = request.headers['sessionkey'].replace("'", "''")
     authorized = server_i.auth_sessionkey(username, sessionkey)
@@ -253,7 +253,7 @@ def run():
     status = -1
     content = ""
 
-    server_i = server.app.config['server']
+    server_i = server.app.config['flask-back']
     username = request.headers['username'].replace("'", "''")
     sessionkey = request.headers['sessionkey'].replace("'", "''")
     authorized = server_i.auth_sessionkey(username, sessionkey)
@@ -274,7 +274,7 @@ def run_to_unprepared():
     status = -1
     content = ""
 
-    server_i = server.app.config['server']
+    server_i = server.app.config['flask-back']
     username = request.headers['username'].replace("'", "''")
     sessionkey = request.headers['sessionkey'].replace("'", "''")
     authorized = server_i.auth_sessionkey(username, sessionkey)
@@ -296,7 +296,7 @@ def deliver_and_run():
     status = -1
     content = ""
 
-    server_i = server.app.config['server']
+    server_i = server.app.config['flask-back']
     username = request.headers['username'].replace("'", "''")
     sessionkey = request.headers['sessionkey'].replace("'", "''")
     authorized = server_i.auth_sessionkey(username, sessionkey)
