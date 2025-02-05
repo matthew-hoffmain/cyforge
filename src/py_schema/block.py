@@ -11,7 +11,7 @@ class Block:
                  join: bool = False
                  ) -> None:
         self.block_id = block_id
-        assert (block_id >= 0), f"block_id ({block_id}) must be greater than 0"
+        assert (block_id >= 0), f"block_id ({block_id}) must be greater than or 0"
         self.name = name
         self.in_groups = in_groups if in_groups is not None else ['public']  # List of groups the participant belongs to
         self.join = join

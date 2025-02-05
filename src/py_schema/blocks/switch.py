@@ -1,7 +1,7 @@
 import typing
 
 from message import Message
-from blocks.block import Block
+from block import Block
 
 
 class Switch(Block):

@@ -19,6 +19,7 @@ export function SignInPage() {
             {sessionkey===-4 && "Username is invalid length"}
             {sessionkey===-5 && "Username contains invalid characters"}
             {sessionkey===-6 && "Password is invalid"}
+            {sessionkey===1 && "Password is invalid"}
         </div>
     )
 }

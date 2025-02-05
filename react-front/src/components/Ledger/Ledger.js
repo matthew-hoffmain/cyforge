@@ -140,7 +140,7 @@ export function Ledger({schemaName,
             get_state();
             interval = setInterval(() => {
                 setSeconds(seconds => seconds + 1);
-            }, 1000);
+            }, 100);
         } else {
             clearInterval(interval);
         }

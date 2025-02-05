@@ -5,15 +5,14 @@ import sys
 from flask import Flask
 from configparser import ConfigParser
 
-from blocks.block import Block
+from block import Block
 from blocks.responders.echo import Echo
 from blocks.responders.machineModel import MachineModel
-from blocks.responders.responder import Responder
+from blocks.responder import Responder
 from blocks.responders.textInput import TextInput
 from dbconnector import DBConnector
-from py_schema.schema import Schema
+from blocks.schema import Schema
 import threading
-from openai import OpenAI
 import hashlib
 
 app = Flask(__name__)

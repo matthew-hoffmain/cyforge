@@ -1,6 +1,6 @@
 from datetime import datetime
 from py_schema.message import Message
-from py_schema.blocks.block import Block
+from block import Block
 from py_schema.blocks.responders.responseGenerator import ResponseGenerator
 
 

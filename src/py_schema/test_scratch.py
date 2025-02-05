@@ -1,15 +1,9 @@
-import os
-import random
-
-from schema import Schema
-from blocks.switches.switch import Switch
-from blocks.responders.responder import Responder
+from blocks.schema import Schema
+from blocks.switch import Switch
+from blocks.responder import Responder
 from message import Message
-from blocks.responders.machineModel import MachineModel
-from blocks.responders.textInput import TextInput
 from blocks.responders.echo import Echo
 from blocks.responders.countLedger import CountLedger
-import json
 
 
 def test_grouping():

@@ -10,6 +10,8 @@ import useWindowDimensions, {WindowDimensions} from './components/WindowDimensio
 import {Button} from "@mui/material";
 import Box from "@mui/material/Box";
 import {UserContext} from "./components/contexts/UserContext";
+import {Panel} from "reactflow";
+import Modal from "./components/Modal/Modal";
 
 
 export default function App() {
@@ -17,6 +19,7 @@ export default function App() {
     const {height, width} = useWindowDimensions();
     const [username, setUsername] = React.useState(loginCookie.get('username') ? loginCookie.get('username') : "");
     const [sessionkey, setSessionkey] = React.useState(loginCookie.get('sessionkey') ? loginCookie.get('sessionkey') : 0);
+    const [modalContent, setModalContent] = useState("We love modals here")
 
 
     useEffect(() => {
@@ -39,25 +42,31 @@ export default function App() {
         })
     })
 
+
+
     return (
-        <UserContext.Provider value={{username, setUsername, sessionkey, setSessionkey}}>
+    <UserContext.Provider value={{username, setUsername, sessionkey, setSessionkey}}>
 
         <body>
-    <div id={"identity"}
-         sessionkey={sessionkey}/>
-    <Box id={"root"}
-         sx={{
-             display: 'block',
-             width: width, height: height, bgcolor: 'purple'
-         }}>
-        {sessionkey <= 0 && <><SignInPage/></>}
+            <div id={"identity"}
+                 sessionkey={sessionkey}/>
 
-        {!(sessionkey <= 0) && <>
-            <NavBar/>
-            <Sandbox/>
-        </>}
-    </Box>
-    </body>
+            <Box id={"root"}
+
+                 sx={{
+                     display: 'block',
+                     width: width, height: height, bgcolor: 'purple'
+                 }}>
+
+
+                {sessionkey <= 0 && <><SignInPage/></>}
+
+                {!(sessionkey <= 0) && <>
+                    <NavBar/>
+                    <Sandbox/>
+                </>}
+            </Box>
+        </body>
 
     </UserContext.Provider>)
 

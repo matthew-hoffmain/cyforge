@@ -126,37 +126,41 @@ export default function CustomNode({id, data, isConnectable}) {
                     </>);
             case 'Switch':
                 return (
-                    <div>
-                        Switch Function:<strong>
-                        <EditableOption editing={editing} name='Switch Function' options={['Audio-In Enabled', 'Audio-Out Enabled']}
-                                        setValue={setSubtype} value='Dispatch'>
-                        </EditableOption></strong>
-                    </div>);
+                    <>
+                        <div>
+                            Switch Function:<strong>
+                            <EditableOption editing={editing} name='Switch Function' options={['Audio-In Enabled', 'Audio-Out Enabled']}
+                                            setValue={setSubtype} value={subtype}>
+                            </EditableOption></strong>
+                        </div>
+                    </>);
             case 'Component':
                 return (
                     <>
-                    <Box component="section" sx={{
-                        border: '2px solid black', // display: 'inline-flex',
-                        display: 'block',
-                        height: '300px',
-                        width: '400px',
-                        bgcolor: 'green', '&:hover': {
-                            bgcolor: 'green',
-                        },
-                    }}
-                    >
-                        <div>
-                            // todo :
-                            <EditableOption editing={true} value={name} options={['defaultSubschema', 'orAnother']}/></div>
-                    </Box></>);
+                        <Box component="section" sx={{
+                            border: '2px solid black', // display: 'inline-flex',
+                            display: 'block',
+                            height: '300px',
+                            width: '400px',
+                            bgcolor: 'green', '&:hover': {
+                                bgcolor: 'green',
+                            },
+                        }}
+                        >
+                            <div>
+                                <EditableOption editing={true} value={name} options={['defaultSubschema', 'orAnother']}/></div>
+                        </Box>
+                    </>);
             case 'Test':
                 return (
-                  <>
-                      <div>
-                          Hello!
-                      </div>
-                  </>
-                );
+                    <>
+                        <div>
+                            Test Function:<strong>
+                            <EditableOption editing={editing} name='Test Function' options={['Numbah 1', 'Numbah 2']}
+                                            setValue={setSubtype} value={subtype}>
+                            </EditableOption></strong>
+                        </div>
+                    </>);
             default:
                 return;
         }
