@@ -1,5 +1,7 @@
 # cyforge
-Cyforge is a codeless design tool for building and running AI pipelines. Prompt engineering is the most pervasive method for tooling general purpose language models into autonomous agents. Organizing your AI control scheme as a flow chart allows you to have greater oversight over the context that models are using to determine their responses.
+`cyforge` is a python Package for building and running AI pipelines in Python.
+
+The `cyforge` module can be used sepearately from the `flask-back` and `react-front` repos, which act as an example application of the base package.
 
 ![image](https://github.com/user-attachments/assets/553535fd-9cbb-45a3-a22b-5746c0d6f26f)
 
