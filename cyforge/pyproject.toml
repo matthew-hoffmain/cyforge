@@ -1,0 +1,8 @@
+[project]
+name = "cyforge"
+authors = [
+    {name = "Matt Hoffman", email = "matthew@hoffmain.com"},
+]
+version = 0.1
+description = "Coming soon"
+
