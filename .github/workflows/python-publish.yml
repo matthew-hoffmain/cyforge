@@ -26,6 +26,7 @@ jobs:
 
       - name: Build release distributions
         run: |
+          cd cyforge
           python -m pip install build
           python -m build
 
@@ -33,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: release-dists
-          path: dist/
+          path: cyforge/dist/
 
   pypi-publish:
     runs-on: ubuntu-latest
