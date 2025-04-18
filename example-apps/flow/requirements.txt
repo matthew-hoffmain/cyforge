@@ -1,5 +1,0 @@
-graphviz
-networkx
-openai
-flask
-pytest
