@@ -3,6 +3,6 @@ name = "cyforge"
 authors = [
     {name = "Matt Hoffman", email = "matthew@hoffmain.com"},
 ]
-version = "0.1.2"
+version = "0.1.3"
 description = "Coming soon"
 
