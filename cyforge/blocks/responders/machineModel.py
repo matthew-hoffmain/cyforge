@@ -2,7 +2,7 @@
 SUPPORT FOR EVERY MODEL GOES HERE
 """
 from openai import OpenAI
-from blocks.responders.responseGenerator import ResponseGenerator
+from ..responders.responseGenerator import ResponseGenerator
 
 
 class MachineModel(ResponseGenerator):

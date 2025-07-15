@@ -1,7 +1,7 @@
 from queue import Queue
-from blocks.responder import Responder
-from block import Block
-from message import Message
+from ..blocks.responder import Responder
+from ..block import Block
+from ..message import Message
 from graphviz import Digraph
 import networkx as nx
 import time

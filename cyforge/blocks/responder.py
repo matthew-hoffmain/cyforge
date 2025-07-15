@@ -1,7 +1,7 @@
 from datetime import datetime
-from message import Message
-from block import Block
-from blocks.responders.responseGenerator import ResponseGenerator
+from ..message import Message
+from ..block import Block
+from ..blocks.responders.responseGenerator import ResponseGenerator
 
 
 class Responder(Block):

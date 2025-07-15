@@ -1,5 +1,5 @@
-from message import Message
-from blocks.responders.responseGenerator import ResponseGenerator
+from ...message import Message
+from ..responders.responseGenerator import ResponseGenerator
 from queue import Queue
 
 
