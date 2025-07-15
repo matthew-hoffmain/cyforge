@@ -1,9 +1,9 @@
-from blocks.schema import Schema
-from blocks.switch import Switch
-from blocks.responder import Responder
-from message import Message
-from blocks.responders.echo import Echo
-from blocks.responders.countLedger import CountLedger
+from cyforge.blocks.schema import Schema
+from cyforge.blocks.switch import Switch
+from cyforge.blocks.responder import Responder
+from cyforge.message import Message
+from cyforge.blocks.responders.echo import Echo
+from cyforge.blocks.responders.countLedger import CountLedger
 
 
 def test_grouping():
